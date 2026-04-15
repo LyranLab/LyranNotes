@@ -69,13 +69,6 @@
 		"status": "disconnected"
 	},
 	{
-		"name": "enpitsulin 铅笔",
-		"url": "https://enpitsulin.xyz/",
-		"avatar": "https://enpitsulin.dev/images/avatar.webp",
-		"description": "很简洁的blog网站，像 nanda。只不过很久没内容了。他现在的头像一时让我想不起他是谁了，突然发现它过去可爱头像，我想起来这家伙了。",
-		"stars": 2
-	},
-	{
 		"name": "Innei 静かな森",
 		"url": "https://innei.in/",
 		"avatar": "https://cdn.jsdelivr.net/gh/Innei/static@master/avatar.png",
@@ -89,20 +82,6 @@
 		"description": "看名字，就知道是过去的残党了。但是我挺喜欢他的设计的，页面清晰，一股书生气。虽然是老人，但能追溯的过去并不多。",
 		"stars": 3,
 		"status": "disconnected"
-	},
-	{
-		"name": "BlogFinder",
-		"url": "https://bf.zzxworld.com/",
-		"avatar": "https://bf.zzxworld.com/images/favicon.png",
-		"description": "一个 blog 收集网站，可以查阅有哪些 blog，也可以直接看最近谁更新了什么",
-		"stars": 3
-	},
-	{
-		"name": "Tonsky",
-		"url": "https://tonsky.me/",
-		"avatar": "https://avatars.githubusercontent.com/u/285292?v=4",
-		"description": "一个过去的国外大神，忘了是什么时候发现它的，blog 依旧时不时更新。就是现在 blog 太刺眼了，不知道是不是故意的。",
-		"stars": 3
 	},
 	{
 		"name": "Cali",
@@ -128,13 +107,6 @@
 		"status": "disconnected"
 	},
 	{
-		"name": "Brian Lovin",
-		"url": "https://brianlovin.com/",
-		"avatar": "https://avatars.githubusercontent.com/u/1923260?v=4",
-		"description": "早期外国大神，在 Github,Facebook 工作过，现在在notion，资历老、项目多。blog 写成了 Dashboard 风格，蛮奇特的，但是 blog 并不多。",
-		"stars": 4
-	},
-	{
 		"name": "Cassie Evans's Blog",
 		"url": "https://www.cassie.codes/",
 		"avatar": "https://www.cassie.codes/images/avatar2.jpg",
@@ -158,13 +130,6 @@
 		"status": "disconnected"
 	},
 	{
-		"name": "阿猫的博客",
-		"url": "https://ameow.xyz/",
-		"avatar": "https://ameow.xyz/upload/favicon.png",
-		"description": "可爱的网站，一直在更新他的猫鱼周刊。",
-		"stars": 3
-	},
-	{
 		"name": "pseudoyu",
 		"url": "https://www.pseudoyu.com/",
 		"avatar": "https://www.pseudoyu.com/avatar.webp",
@@ -184,13 +149,6 @@
 		"avatar": "https://www.vio.vin/apple-touch-icon.png",
 		"url": "https://www.vio.vin/",
 		"description": "23 年新晋散修，如他所说，一天倒腾一些奇怪的东西。应该是以后端为主，喜欢完一些硬件。静森系 blog，25年 blog 稳定输出。",
-		"stars": 2
-	},
-	{
-		"name": "搬砖日记",
-		"avatar": "https://banzhuanriji.com/img/icon.ico",
-		"url": "https://banzhuanriji.com/",
-		"description": "白底黑字。但是打理得挺好的。应该是 Andriod 开发者，24 年开始分享各种探索。摸不清根底。",
 		"stars": 2
 	},
 	{
@@ -217,13 +175,6 @@
 		"stars": 3
 	},
 	{
-		"name": "手里有只毛毛虫",
-		"avatar": "https://www.krjojo.com/wp-content/uploads/2024/05/avatar.avif",
-		"url": "https://www.krjojo.com/",
-		"description": "网站很舒服，一位六边形战士的独立开发者。文章目录能一眼看完就好了，想翻点想看的比较不容易。",
-		"stars": 4
-	},
-	{
 		"name": "Honesty",
 		"avatar": "https://cdn.jsdelivr.net/gh/listener-He/images@default/202309111525908.jpeg",
 		"url": "https://blog.hehouhui.cn/",
@@ -243,13 +194,6 @@
 		"url": "https://blog.ahzoo.cn/",
 		"description": "Z次元，后端开发，记录了很多后端研究。但折腾前端和 blog 还不少。把 blog 打理得有自己独特得舒适，实属难得",
 		"stars": 3
-	},
-	{
-		"name": "纸鹿摸鱼处",
-		"avatar": "https://weavatar.com/avatar/47c0f2e82b76d9b10eb3023df9e02e4e3fdbeaf5b74b842063f207971e7fbe7b?s=160",
-		"url": "https://blog.zhilu.site/",
-		"description": "棒棒的开源 blog 主，今天蹭了蹭他群友，🤣，给他多加一分🤣🤣🤣。",
-		"stars": 4
 	},
 	{
 		"name": "灯火不休时",
