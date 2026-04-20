@@ -10,16 +10,6 @@
 		"stars": 4
 	},
 	{
-		"name": "Nucleo",
-		"url": "https://nucleoapp.com/app/?library=core",
-		"logo": "/images/share/7e720f35557fa9de.svg",
-		"description": "图标库，网站整体很干净。独特的是，它有一类像素风格的图标，很有意思。它的 icon 也很多，还有 grass 风格的。",
-		"tags": [
-			"Icons"
-		],
-		"stars": 3
-	},
-	{
 		"name": "Uiverse",
 		"url": "https://uiverse.io/",
 		"logo": "/images/share/5e7b29cb1a84be80.png",
@@ -39,16 +29,6 @@
 			"Github"
 		],
 		"stars": 4
-	},
-	{
-		"name": "Awwwards",
-		"url": "https://www.awwwards.com/",
-		"logo": "https://assets.awwwards.com/assets/images/favicon.svg",
-		"description": "网站评选网站，你总能从这里发现惊艳的网站",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
 	},
 	{
 		"name": "CSS Design Awards",
@@ -81,13 +61,13 @@
 		"stars": 3
 	},
 	{
-		"name": "Isocons",
-		"logo": "/images/share/97859f1c57799dd2.png",
-		"url": "https://www.isocons.app/",
-		"description": "3D icons 网站，酷酷的，免费。",
+		"name": "AI工具集",
+		"logo": "blob:https://www.gzrwgpt.icu/a32609ba-aff6-4f18-8cf7-4be508f93075",
+		"url": "https://ai-bot.cn/",
+		"description": "每日更新的AI咨询，各种类别的AI工具",
 		"tags": [
-			"Icons"
+			"AI，工具，资讯"
 		],
-		"stars": 3
+		"stars": 4
 	}
 ]
