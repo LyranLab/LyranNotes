@@ -31,16 +31,6 @@
 		"stars": 4
 	},
 	{
-		"name": "CSS Design Awards",
-		"url": "https://www.cssdesignawards.com/",
-		"logo": "/images/share/aaae2bf4f74c8eb1.svg",
-		"description": "网站评选网站，跟 Awwwards 类似，可以看到每期的优秀网站。观感上会好些。",
-		"tags": [
-			"网站集"
-		],
-		"stars": 3
-	},
-	{
 		"name": "Making Software",
 		"logo": "https://www.makingsoftware.com/favicon.ico",
 		"url": "https://www.makingsoftware.com/",
@@ -66,7 +56,9 @@
 		"url": "https://ai-bot.cn/",
 		"description": "每日更新的AI咨询，各种类别的AI工具",
 		"tags": [
-			"AI，工具，资讯"
+			"AI",
+			"工具",
+			"资讯"
 		],
 		"stars": 4
 	}
