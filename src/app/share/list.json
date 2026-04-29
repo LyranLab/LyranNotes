@@ -61,5 +61,17 @@
 			"资讯"
 		],
 		"stars": 4
+	},
+	{
+		"name": "minimind",
+		"logo": "blob:https://www.gzrwgpt.icu/b6c9a85f-ddb2-4e99-bbce-72b21d8d42ba",
+		"url": "https://github.com/jingyaogong/minimind",
+		"description": "从零低成本的学习模型的微调参数的意义，见证模型进入死循环，崩溃背后的原因。",
+		"tags": [
+			"AI",
+			"学习资料",
+			"github"
+		],
+		"stars": 3
 	}
 ]
