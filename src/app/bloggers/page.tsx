@@ -19,6 +19,8 @@ export default function Page() {
 	const [editingBlogger, setEditingBlogger] = useState<Blogger | null>(null)
 	const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 	const [avatarItems, setAvatarItems] = useState<Map<string, AvatarItem>>(new Map())
+	const [savedRevision, setSavedRevision] = useState(0)
+	const isSavingRef = useRef(false)
 	const keyInputRef = useRef<HTMLInputElement>(null)
 
 	const { isAuth, setPrivateKey } = useAuthStore()
@@ -26,6 +28,7 @@ export default function Page() {
 	const hideEditButton = siteContent.hideEditButton ?? false
 
 	const handleUpdate = (updatedBlogger: Blogger, oldBlogger: Blogger, avatarItem?: AvatarItem) => {
+		if (isSavingRef.current) return
 		setBloggers(prev => prev.map(b => (b.url === oldBlogger.url ? updatedBlogger : b)))
 		if (avatarItem) {
 			setAvatarItems(prev => {
@@ -37,20 +40,29 @@ export default function Page() {
 	}
 
 	const handleAdd = () => {
+		if (isSavingRef.current) return
 		setEditingBlogger(null)
 		setIsCreateDialogOpen(true)
 	}
 
-	const handleSaveBlogger = (updatedBlogger: Blogger) => {
+	const handleSaveBlogger = (updatedBlogger: Blogger, avatarItem?: AvatarItem) => {
+		if (isSavingRef.current) return
 		if (editingBlogger) {
-			const updated = bloggers.map(b => (b.url === editingBlogger.url ? updatedBlogger : b))
-			setBloggers(updated)
+			setBloggers(bloggers.map(b => (b.url === editingBlogger.url ? updatedBlogger : b)))
 		} else {
 			setBloggers([...bloggers, updatedBlogger])
+		}
+		if (avatarItem) {
+			setAvatarItems(prev => {
+				const newMap = new Map(prev)
+				newMap.set(updatedBlogger.url, avatarItem)
+				return newMap
+			})
 		}
 	}
 
 	const handleDelete = (blogger: Blogger) => {
+		if (isSavingRef.current) return
 		if (confirm(`确定要删除 ${blogger.name} 吗？`)) {
 			setBloggers(bloggers.filter(b => b.url !== blogger.url))
 		}
@@ -69,6 +81,7 @@ export default function Page() {
 	}
 
 	const handleSaveClick = () => {
+		if (isSavingRef.current) return
 		if (!isAuth) {
 			keyInputRef.current?.click()
 		} else {
@@ -77,27 +90,34 @@ export default function Page() {
 	}
 
 	const handleSave = async () => {
+		if (isSavingRef.current) return
+		isSavingRef.current = true
 		setIsSaving(true)
 
 		try {
-			await pushBloggers({
+			const updatedBloggers = await pushBloggers({
 				bloggers,
 				avatarItems
 			})
 
-			setOriginalBloggers(bloggers)
+			setBloggers(updatedBloggers)
+			setOriginalBloggers(updatedBloggers)
 			setAvatarItems(new Map())
+			// Refresh card drafts with the published image URLs.
+			setSavedRevision(revision => revision + 1)
 			setIsEditMode(false)
 			toast.success('保存成功！')
 		} catch (error: any) {
 			console.error('Failed to save:', error)
 			toast.error(`保存失败: ${error?.message || '未知错误'}`)
 		} finally {
+			isSavingRef.current = false
 			setIsSaving(false)
 		}
 	}
 
 	const handleCancel = () => {
+		if (isSavingRef.current) return
 		setBloggers(originalBloggers)
 		setAvatarItems(new Map())
 		setIsEditMode(false)
@@ -133,7 +153,7 @@ export default function Page() {
 				}}
 			/>
 
-			<GridView bloggers={bloggers} isEditMode={isEditMode} onUpdate={handleUpdate} onDelete={handleDelete} />
+			<GridView key={savedRevision} bloggers={bloggers} isEditMode={isEditMode && !isSaving} onUpdate={handleUpdate} onDelete={handleDelete} />
 
 			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
 				{isEditMode ? (
@@ -150,6 +170,7 @@ export default function Page() {
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 							onClick={handleAdd}
+							disabled={isSaving}
 							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
 							添加
 						</motion.button>
