@@ -20,6 +20,8 @@ export default function Page() {
 	const [editingShare, setEditingShare] = useState<Share | null>(null)
 	const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 	const [logoItems, setLogoItems] = useState<Map<string, LogoItem>>(new Map())
+	const [savedRevision, setSavedRevision] = useState(0)
+	const isSavingRef = useRef(false)
 	const keyInputRef = useRef<HTMLInputElement>(null)
 
 	const { isAuth, setPrivateKey } = useAuthStore()
@@ -27,6 +29,7 @@ export default function Page() {
 	const hideEditButton = siteContent.hideEditButton ?? false
 
 	const handleUpdate = (updatedShare: Share, oldShare: Share, logoItem?: LogoItem) => {
+		if (isSavingRef.current) return
 		setShares(prev => prev.map(s => (s.url === oldShare.url ? updatedShare : s)))
 		if (logoItem) {
 			setLogoItems(prev => {
@@ -38,20 +41,29 @@ export default function Page() {
 	}
 
 	const handleAdd = () => {
+		if (isSavingRef.current) return
 		setEditingShare(null)
 		setIsCreateDialogOpen(true)
 	}
 
-	const handleSaveShare = (updatedShare: Share) => {
+	const handleSaveShare = (updatedShare: Share, logoItem?: LogoItem) => {
+		if (isSavingRef.current) return
 		if (editingShare) {
-			const updated = shares.map(s => (s.url === editingShare.url ? updatedShare : s))
-			setShares(updated)
+			setShares(shares.map(s => (s.url === editingShare.url ? updatedShare : s)))
 		} else {
 			setShares([...shares, updatedShare])
+		}
+		if (logoItem) {
+			setLogoItems(prev => {
+				const newMap = new Map(prev)
+				newMap.set(updatedShare.url, logoItem)
+				return newMap
+			})
 		}
 	}
 
 	const handleDelete = (share: Share) => {
+		if (isSavingRef.current) return
 		if (confirm(`确定要删除 ${share.name} 吗？`)) {
 			setShares(shares.filter(s => s.url !== share.url))
 		}
@@ -70,6 +82,7 @@ export default function Page() {
 	}
 
 	const handleSaveClick = () => {
+		if (isSavingRef.current) return
 		if (!isAuth) {
 			keyInputRef.current?.click()
 		} else {
@@ -78,27 +91,34 @@ export default function Page() {
 	}
 
 	const handleSave = async () => {
+		if (isSavingRef.current) return
+		isSavingRef.current = true
 		setIsSaving(true)
 
 		try {
-			await pushShares({
+			const updatedShares = await pushShares({
 				shares,
 				logoItems
 			})
 
-			setOriginalShares(shares)
+			setShares(updatedShares)
+			setOriginalShares(updatedShares)
 			setLogoItems(new Map())
+			// Refresh card drafts with the published image URLs.
+			setSavedRevision(revision => revision + 1)
 			setIsEditMode(false)
 			toast.success('保存成功！')
 		} catch (error: any) {
 			console.error('Failed to save:', error)
 			toast.error(`保存失败: ${error?.message || '未知错误'}`)
 		} finally {
+			isSavingRef.current = false
 			setIsSaving(false)
 		}
 	}
 
 	const handleCancel = () => {
+		if (isSavingRef.current) return
 		setShares(originalShares)
 		setLogoItems(new Map())
 		setIsEditMode(false)
@@ -134,7 +154,7 @@ export default function Page() {
 				}}
 			/>
 
-			<GridView shares={shares} isEditMode={isEditMode} onUpdate={handleUpdate} onDelete={handleDelete} />
+			<GridView key={savedRevision} shares={shares} isEditMode={isEditMode && !isSaving} onUpdate={handleUpdate} onDelete={handleDelete} />
 
 			<motion.div initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} className='absolute top-4 right-6 flex gap-3 max-sm:hidden'>
 				{isEditMode ? (
@@ -151,6 +171,7 @@ export default function Page() {
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}
 							onClick={handleAdd}
+							disabled={isSaving}
 							className='rounded-xl border bg-white/60 px-6 py-2 text-sm'>
 							添加
 						</motion.button>
